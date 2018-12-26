@@ -10,18 +10,18 @@ class KNearestNeighbor(object):
 
   def train(self, X, y):
     """
-    Train the classifier. For k-nearest neighbors this is just 
+    Train the classifier. For k-nearest neighbors this is just
     memorizing the training data.
 
     Inputs:
     - X: A numpy array of shape (num_train, D) containing the training data
       consisting of num_train samples each of dimension D.
     - y: A numpy array of shape (N,) containing the training labels, where
-         y[i] is the label for X[i].
+         y[i] is the label for X[i]
     """
     self.X_train = X
     self.y_train = y
-    
+
   def predict(self, X, k=1, num_loops=0):
     """
     Predict labels for test data using this classifier.
@@ -35,7 +35,7 @@ class KNearestNeighbor(object):
 
     Returns:
     - y: A numpy array of shape (num_test,) containing predicted labels for the
-      test data, where y[i] is the predicted label for the test point X[i].  
+      test data, where y[i] is the predicted label for the test point X[i].
     """
     if num_loops == 0:
       dists = self.compute_distances_no_loops(X)
@@ -51,7 +51,7 @@ class KNearestNeighbor(object):
   def compute_distances_two_loops(self, X):
     """
     Compute the distance between each test point in X and each training point
-    in self.X_train using a nested loop over both the training data and the 
+    in self.X_train using a nested loop over both the training data and the
     test data.
 
     Inputs:
@@ -124,8 +124,8 @@ class KNearestNeighbor(object):
     #       and two broadcast sums.                                         #
     #########################################################################
     dists = np.sqrt(
-        ( (-2 * X.dot(self.X_train.T)).T 
-        + np.sum(np.square(X), axis=1)).T 
+        ( (-2 * X.dot(self.X_train.T)).T
+        + np.sum(np.square(X), axis=1)).T
         + np.sum(np.square(self.X_train), axis=1))    #########################################################################
     #                         END OF YOUR CODE                              #
     #########################################################################
@@ -142,7 +142,7 @@ class KNearestNeighbor(object):
 
     Returns:
     - y: A numpy array of shape (num_test,) containing predicted labels for the
-      test data, where y[i] is the predicted label for the test point X[i].  
+      test data, where y[i] is the predicted label for the test point X[i].
     """
     num_test = dists.shape[0]
     y_pred = np.zeros(num_test)
@@ -168,7 +168,7 @@ class KNearestNeighbor(object):
       #########################################################################
       y_pred[i] = np.argmax(np.bincount(closest_y))
       #########################################################################
-      #                           END OF YOUR CODE                            # 
+      #                           END OF YOUR CODE                            #
       #########################################################################
 
     return y_pred
